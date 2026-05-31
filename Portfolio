@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mai Moutaz — Events Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --ink: #1A0A0A;
+    --red: #8B1A1A;
+    --red-deep: #6B1212;
+    --red-light: #F5E8E8;
+    --red-mid: #C47070;
+    --warm-gray: #8C8580;
+    --card-bg: #FFFFFF;
+    --border: rgba(139,26,26,0.12);
+    --section-gap: 90px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+  nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 4rem; background: var(--cream); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warm-gray); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 0.5rem 1.2rem; border-radius: 100px; }
+  .nav-cta:hover { background: var(--red) !important; }
+
+  .hero { min-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 4rem; gap: 4rem; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--red-light); color: var(--red); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+  .hero-tag span { width: 6px; height: 6px; background: var(--red); border-radius: 50%; display: inline-block; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 4.5vw, 5rem); line-height: 1.05; font-weight: 700; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: var(--red); font-weight: 400; }
+  .hero-desc { font-size: 1rem; line-height: 1.75; color: var(--warm-gray); max-width: 460px; margin-bottom: 1.5rem; }
+  .event-types { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.5rem; }
+  .event-types span { background: var(--red-light); color: var(--red); font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.8rem; border-radius: 100px; border: 1px solid rgba(139,26,26,0.2); }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--red); color: white; padding: 0.9rem 2rem; border-radius: 100px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .btn-primary:hover { background: var(--red-deep); transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--ink); padding: 0.9rem 2rem; border-radius: 100px; font-size: 0.9rem; font-weight: 500; text-decoration: none; border: 1.5px solid var(--border); transition: border-color 0.2s, color 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .btn-secondary:hover { border-color: var(--red); color: var(--red); transform: translateY(-1px); }
+
+  .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-height: 520px; }
+  .hero-card-main { background: var(--ink); border-radius: 24px; width: 300px; height: 380px; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; overflow: hidden; z-index: 2; }
+  .hero-card-main-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #3A1010 0%, #1A0A0A 60%); border-radius: 24px; }
+  .avatar-placeholder { position: absolute; top: 2rem; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; border-radius: 50%; background: var(--red-light); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--red); z-index: 3; }
+  .hero-card-content { position: relative; z-index: 3; }
+  .hero-card-content h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: white; margin-bottom: 0.2rem; }
+  .hero-card-content p { font-size: 0.78rem; color: var(--red-mid); margin-bottom: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+  .hero-card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .hero-card-tags span { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 100px; }
+  .hero-card-float { position: absolute; background: white; border-radius: 16px; padding: 1rem 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+  .float-1 { top: 2rem; right: -1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .float-1 .dot { width: 36px; height: 36px; background: var(--red-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .float-1 .info p:first-child { font-size: 0.75rem; color: var(--warm-gray); }
+  .float-1 .info p:last-child { font-size: 1rem; font-weight: 500; color: var(--ink); }
+  .float-2 { bottom: 3rem; left: -2rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .float-2 .label { font-size: 0.72rem; color: var(--warm-gray); }
+  .float-2 .badges { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+  .float-2 .badge { background: var(--red-light); color: var(--red); font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 100px; font-weight: 500; }
+
+  .stats-bar { padding: 2.5rem 4rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; justify-content: center; }
+  .stat-item { text-align: center; padding: 0 3.5rem; border-right: 1px solid var(--border); }
+  .stat-item:last-child { border-right: none; }
+  .stat-number { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--red); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.78rem; color: var(--warm-gray); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .section { padding: var(--section-gap) 4rem; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .section-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 700; line-height: 1.1; }
+  .section-title em { font-style: italic; color: var(--warm-gray); font-weight: 400; }
+
+  .work-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 2rem 2rem 2rem 2.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--red); }
+  .work-card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+  .work-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--red-light); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .work-card-meta h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+  .work-card-meta .org { font-size: 0.85rem; color: var(--red); font-weight: 500; margin-bottom: 0.3rem; }
+  .work-card-meta .date { font-size: 0.78rem; color: var(--warm-gray); }
+  .work-tag { display: inline-block; background: var(--red-light); color: var(--red); font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.7rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
+  .work-desc { font-size: 0.9rem; color: var(--warm-gray); line-height: 1.7; margin-bottom: 1rem; }
+  .work-events-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .work-events-list span { background: var(--cream); border: 1px solid var(--border); color: var(--ink); font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 100px; }
+  .work-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .work-bullets li { font-size: 0.88rem; color: var(--ink); line-height: 1.6; padding-left: 1rem; position: relative; }
+  .work-bullets li::before { content: ''; position: absolute; left: 0; top: 0.58em; width: 5px; height: 5px; background: var(--red); border-radius: 50%; }
+
+  .events-section { padding: var(--section-gap) 4rem; background: #FAF0F0; }
+  .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .event-card { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+  .event-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(139,26,26,0.1); }
+  .event-card-img { width: 100%; aspect-ratio: 16/10; background: var(--red-light); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+  .event-card-img svg { width: 28px; height: 28px; color: var(--red-mid); }
+  .event-card-img p { font-size: 0.75rem; color: var(--red-mid); font-weight: 500; }
+  .event-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .event-card-body { padding: 1.1rem 1.25rem 1.25rem; }
+  .event-tag { display: inline-block; background: var(--red-light); color: var(--red); font-size: 0.68rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+  .event-tag.blue { background: #E8EDF5; color: #2E5FA3; }
+  .event-tag.green { background: #EAF0EA; color: #2E6E3A; }
+  .event-tag.purple { background: #EDE8F0; color: #5A3A8A; }
+  .event-tag.amber { background: #FFF3E0; color: #9C6000; }
+  .event-card-body h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; line-height: 1.3; }
+  .event-card-body p { font-size: 0.82rem; color: var(--warm-gray); line-height: 1.55; }
+
+  .feature-card { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; border-left: 4px solid var(--red); display: grid; grid-template-columns: 1fr 1fr; grid-column: span 3; margin-bottom: 0; }
+  .feature-card .event-card-img { aspect-ratio: auto; min-height: 220px; }
+  .feature-card .event-card-body { padding: 1.75rem; }
+  .feature-card .event-card-body h4 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+  .feature-card .event-card-body p { margin-bottom: 0.75rem; }
+
+  .about-section { background: var(--ink); padding: var(--section-gap) 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 2.8vw, 3rem); color: white; line-height: 1.1; margin-bottom: 1.5rem; }
+  .about-left h2 em { color: var(--red-mid); font-weight: 400; }
+  .about-left p { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 1rem; }
+  .about-left .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .about-left .tag { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); font-size: 0.78rem; padding: 0.4rem 1rem; border-radius: 100px; border: 1px solid rgba(255,255,255,0.12); }
+  .edu-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem 1.75rem; color: white; margin-bottom: 1rem; }
+  .edu-card .edu-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red-mid); margin-bottom: 0.5rem; }
+  .edu-card h4 { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .edu-card p { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+  .cert-row { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+  .cert-pill { background: var(--ink); border: 1px solid rgba(255,255,255,0.15); color: white; padding: 0.65rem 1.25rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; }
+  .cert-pill span { color: var(--red-mid); }
+
+  .uni-section { padding: var(--section-gap) 4rem; background: var(--red-light); }
+  .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .module-card { background: white; border: 1px solid rgba(139,26,26,0.15); border-radius: 14px; padding: 1.25rem; }
+  .module-card h4 { font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; line-height: 1.35; }
+  .module-card p { font-size: 0.78rem; color: var(--warm-gray); line-height: 1.55; }
+  .module-highlight { border-left: 3px solid var(--red); }
+
+  .contact-section { background: var(--red); padding: var(--section-gap) 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .contact-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 2.8vw, 3rem); color: white; line-height: 1.1; margin-bottom: 1rem; }
+  .contact-section h2 em { font-style: italic; font-weight: 400; opacity: 0.75; }
+  .contact-section > div > p { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link { display: flex; align-items: center; gap: 1rem; text-decoration: none; transition: opacity 0.2s; }
+  .contact-link:hover { opacity: 0.75; }
+  .contact-link-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: white; flex-shrink: 0; }
+  .contact-link-text p:first-child { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); }
+  .contact-link-text p:last-child { font-size: 0.9rem; font-weight: 500; color: white; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-form input, .contact-form textarea { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 12px; padding: 0.85rem 1.25rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: white; outline: none; transition: border-color 0.2s; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.5); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(255,255,255,0.6); }
+  .contact-form textarea { resize: vertical; min-height: 110px; }
+  .contact-form button { background: var(--ink); color: white; border: none; border-radius: 100px; padding: 0.9rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; align-self: flex-start; }
+  .contact-form button:hover { background: #2D1010; transform: translateY(-1px); }
+
+  footer { padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); }
+  footer p { font-size: 0.8rem; color: var(--warm-gray); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+
+  .upload-zone { border: 2px dashed var(--red-mid); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; background: white; cursor: pointer; transition: background 0.2s; margin-top: 1.25rem; }
+  .upload-zone:hover { background: var(--red-light); }
+  .upload-zone p { font-size: 0.85rem; color: var(--red); font-weight: 500; }
+  .upload-zone span { font-size: 0.75rem; color: var(--red-mid); margin-top: 0.25rem; display: block; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-text { animation: fadeUp 0.7s ease both; }
+  .hero-visual { animation: fadeUp 0.7s 0.15s ease both; }
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Mai Moutaz</a>
+  <ul class="nav-links">
+    <li><a href="#work">Experience</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#uni">University</a></li>
+    <li><a href="#contact" class="nav-cta">Let's talk</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag"><span></span> Events Management &nbsp;🇸🇦&nbsp;🇬🇧</div>
+    <h1>Events that<br>feel like <em>magic</em><br>run like<br>clockwork.</h1>
+    <p class="hero-desc">Hi, I'm Mai — an events management graduate who brings warmth, creativity, and serious hustle to every event. From intimate dinners to 300-person galas.</p>
+    <div class="event-types">
+      <span>Conferences</span>
+      <span>Sports Events</span>
+      <span>Birthday Parties</span>
+      <span>Award Shows</span>
+      <span>Dinners</span>
+      <span>Holiday Parties</span>
+      <span>Stag &amp; Hen Dos</span>
+      <span>Student Balls</span>
+      <span>Festivals</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#work" class="btn-primary">See my work ↓</a>
+      <a href="#contact" class="btn-secondary">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-main">
+      <div class="hero-card-main-bg"></div>
+      <div class="avatar-placeholder">MM</div>
+      <div class="hero-card-content">
+        <h3>Mai Moutaz</h3>
+        <p>Events Management Graduate</p>
+        <div class="hero-card-tags">
+          <span>Conferences</span>
+          <span>Festivals</span>
+          <span>Galas</span>
+          <span>Bilingual</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card-float float-1">
+      <div class="dot">🏆</div>
+      <div class="info">
+        <p>Experience at</p>
+        <p>Marriott Leeds</p>
+      </div>
+    </div>
+    <div class="hero-card-float float-2">
+      <span class="label">Certified in</span>
+      <div class="badges">
+        <span class="badge">BIIAB Licence</span>
+        <span class="badge">First Aid</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-number">15+</div><div class="stat-label">Volunteer Events</div></div>
+  <div class="stat-item"><div class="stat-number">6+</div><div class="stat-label">Roles in Events</div></div>
+  <div class="stat-item"><div class="stat-number">300+</div><div class="stat-label">Max Event Size</div></div>
+  <div class="stat-item"><div class="stat-number">2</div><div class="stat-label">Languages</div></div>
+</div>
+
+<!-- WORK EXPERIENCE -->
+<section class="section" id="work">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Work Experience</div>
+      <h2 class="section-title">Where I've<br><em>earned my stripes</em></h2>
+    </div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-header">
+      <div class="work-icon">🏨</div>
+      <div class="work-card-meta">
+        <h3>Conference &amp; Events Worker</h3>
+        <div class="org">Marriott Hotel Leeds</div>
+        <div class="date">June 2024 – Present</div>
+      </div>
+    </div>
+    <span class="work-tag">Corporate &amp; Hospitality</span>
+    <p class="work-desc">Involved in every single step — before, during, and after — for events ranging from 10 to 300+ guests. From the first planning run to the final pack-down, nothing is left to chance.</p>
+    <div class="work-events-list">
+      <span>Big Birthday Parties</span><span>Christmas Company Parties</span><span>Student Balls</span><span>Award Ceremonies</span><span>Conferences</span><span>Corporate Dinners</span><span>Banquets</span>
+    </div>
+    <ul class="work-bullets">
+      <li>Full event lifecycle ownership — prep, setup, live event management, breakdown, and reset for the next event.</li>
+      <li>Styled and set up event spaces, managed cloakrooms, served food and beverages across all formats.</li>
+      <li>Delivered exceptional guest service and supported the executive lounge to a five-star standard.</li>
+      <li>Adapted on the spot to last-minute changes and client requests across events of all scales.</li>
+    </ul>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-header">
+      <div class="work-icon">🏎️</div>
+      <div class="work-card-meta">
+        <h3>Host / Marshal</h3>
+        <div class="org">Team-Sport Indoor Go-Karting Leeds</div>
+        <div class="date">Oct 2023 – Oct 2024</div>
+      </div>
+    </div>
+    <span class="work-tag">Entertainment &amp; Events</span>
+    <p class="work-desc">Their guide from the minute guests walked through the door until they left. Every experience was personal — I made sure of that, whether it was a birthday party, a stag do, or a corporate away day.</p>
+    <div class="work-events-list">
+      <span>Birthday Parties</span><span>Stag Dos</span><span>Hen Dos</span><span>Corporate Groups</span><span>Sports Events</span>
+    </div>
+    <ul class="work-bullets">
+      <li>Greeted and registered guests, delivered safety briefings, and provided live race commentary.</li>
+      <li>Managed food preparation, bar and beverage service, and merchandise upselling.</li>
+      <li>Coordinated race scheduling, kart safety checks, and full track operations.</li>
+      <li>Made every group — from birthday crews to corporate teams — feel looked after from start to finish.</li>
+    </ul>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-header">
+      <div class="work-icon">🏥</div>
+      <div class="work-card-meta">
+        <h3>Front Desk Officer</h3>
+        <div class="org">Burjeel Hospital Muscat</div>
+        <div class="date">May 2021 – Aug 2022</div>
+      </div>
+    </div>
+    <span class="work-tag">Customer Service &amp; Operations</span>
+    <ul class="work-bullets">
+      <li>Handled high-volume patient registration, billing, and appointment scheduling in a high-pressure environment.</li>
+      <li>Managed complaints, emergency cases, and sensitive medical concerns calmly and with empathy.</li>
+      <li>Trained and mentored new front-desk officers to ensure smooth, efficient team operations.</li>
+      <li>Supported doctors and nurses with seamless inter-departmental communication.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EVENTS I'VE BEEN PART OF -->
+<section class="events-section" id="events">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Events I've been<br><em>part of</em></h2>
+    </div>
+  </div>
+
+  <div class="events-grid">
+
+    <!-- Feature card: Leeds International Festival of Ideas -->
+    <div class="feature-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag purple">Flagship Project</span>
+        <h4>Leeds International Festival of Ideas</h4>
+        <p>Worked with the festival across two distinct phases. The founder personally praised the work and invited the team to attend the live event.</p>
+        <ul class="work-bullets" style="margin-top: 0.5rem;">
+          <li>Attended brainstorming sessions — contributed panel topics and panelist suggestions.</li>
+          <li>For our university final project, the festival was the live client. Met weekly, conducted deep research.</li>
+          <li>Developed strategies to boost ticket sales and grow audience reach.</li>
+          <li>Created a full new festival strand for younger audiences — name, social identity, visuals, and social media content all built from scratch.</li>
+          <li>The founder confirmed he would take the ideas into real work and invited the team to the live event.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag">Corporate</span>
+        <h4>Marriott Hotel — Conferences &amp; Parties</h4>
+        <p>10 to 300+ guests. Student balls, award shows, Christmas parties, conferences. Every step covered, every time.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag">Entertainment</span>
+        <h4>Team-Sport — Birthdays, Stag &amp; Hen Dos</h4>
+        <p>Guided every guest from the minute they walked in. Personal, high-energy, and always memorable.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag amber">University Production</span>
+        <h4>Dogs Trust Award Show — with SPARQ</h4>
+        <p>Wrote every winner's storyline, filmed the videos, and ran all social media, photography &amp; videography live on the night. Very high mark achieved.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag blue">University</span>
+        <h4>Student Ambassador — UK Centre for Events Management</h4>
+        <p>Represented the course at open events, leading interactive activities with prospective students to showcase the programme.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag">Festival</span>
+        <h4>Live at Leeds Festival</h4>
+        <p>Welcomed attendees, managed ticket scanning, wristband distribution, and crowd flow for smooth entry.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag blue">Film</span>
+        <h4>Leeds International Film Festival 2023/24</h4>
+        <p>Vue Cinema &amp; Hyde Park Picture House — ticket validation, queue management, and guest guidance across multiple venues.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag green">Charity Gala</span>
+        <h4>Kind Hearts Give Back Ball</h4>
+        <p>Led the full room transformation — layout planning, décor setup, and ambiance creation for a formal charity gala.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag">Immersive</span>
+        <h4>Intermission by Riptide</h4>
+        <p>Set up and maintained immersive event spaces, ensuring smooth guest transitions throughout.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag green">Community</span>
+        <h4>Family Flourish Day — Mafwa Theatre</h4>
+        <p>Crowd management, attendee flow, and face-painting for younger guests. Safe, fun, and memorable for all.</p>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>Add your photos here</p>
+      </div>
+      <div class="event-card-body">
+        <span class="event-tag">Hospitality</span>
+        <h4>Be Caring Initiative</h4>
+        <p>Guest check-ins, hotel key cards, and personalised in-room appreciation gifts coordinated with hotel staff.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="upload-zone" onclick="this.querySelector('input').click()">
+    <input type="file" multiple accept="image/*,video/*" style="display:none">
+    <p>+ Upload your own photos &amp; videos</p>
+    <span>Drop your event media here — they'll appear in your portfolio</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-left">
+    <h2>The person<br>behind the <em>events</em></h2>
+    <p>I'm Mai — a Leeds Beckett Events Management graduate who grew up between two cultures and learned early that the best events make everyone feel at home.</p>
+    <p>I bring something rare: I can run a polished corporate conference in the morning and bring that same energy to a festival crowd in the afternoon. Every size, every format, every vibe.</p>
+    <p>Bilingual in English and Arabic, BIIAB licensed, First Aid certified, and always the person who makes sure everything runs perfectly.</p>
+    <div class="tags">
+      <span class="tag">Event Coordination</span>
+      <span class="tag">Guest Experience</span>
+      <span class="tag">Bilingual EN / AR</span>
+      <span class="tag">Event Production</span>
+      <span class="tag">Social Media &amp; Content</span>
+      <span class="tag">Creative Direction</span>
+      <span class="tag">BIIAB Licensed</span>
+      <span class="tag">First Aid Certified</span>
+    </div>
+  </div>
+  <div>
+    <div class="edu-card">
+      <div class="edu-label">Degree</div>
+      <h4>BA Events Management</h4>
+      <p>Leeds Beckett University · 2023 – 2026</p>
+    </div>
+    <div class="edu-card">
+      <div class="edu-label">Foundation</div>
+      <h4>Business and Law Foundation</h4>
+      <p>Leeds International Study Centre · 2022 – 2023</p>
+    </div>
+    <div class="cert-row">
+      <div class="cert-pill"><span>✓</span> BIIAB Personal Licence</div>
+      <div class="cert-pill"><span>✓</span> First Aid</div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIVERSITY MODULES -->
+<section class="uni-section" id="uni">
+  <div class="section-header" style="margin-bottom: 2.5rem;">
+    <div>
+      <div class="section-label">BA Events Management · Leeds Beckett</div>
+      <h2 class="section-title">What I studied &amp;<br><em>what I built</em></h2>
+    </div>
+  </div>
+
+  <div class="modules-grid">
+    <div class="module-card module-highlight">
+      <h4>Event Production</h4>
+      <p>Hosted our own award show, working as Dogs Trust. Wrote every winner's storyline, filmed all the videos, and ran social media, photography &amp; videography live on the night. Partnered with event production company SPARQ. Achieved a very high mark.</p>
+    </div>
+    <div class="module-card module-highlight">
+      <h4>Consultancy Project</h4>
+      <p>Live client: Leeds International Festival of Ideas. Worked weekly with the team, researched ticket sales strategies, and built a complete new festival extension for younger audiences — name, social identity, visuals, and content included. The founder loved it.</p>
+    </div>
+    <div class="module-card module-highlight">
+      <h4>Entrepreneurship</h4>
+      <p>Designed and pitched an original business concept in a full Dragon's Den-style pitch, then wrote a complete business plan report. Mine was an app — ask me about it!</p>
+    </div>
+    <div class="module-card">
+      <h4>Event Law &amp; Business Administration</h4>
+      <p>Timed open-book exam and a viva voce in a court-style setting — covering the legal framework of running events.</p>
+    </div>
+    <div class="module-card">
+      <h4>Festival Management</h4>
+      <p>Full presentation and written report on festival planning, logistics, programming, and audience management.</p>
+    </div>
+    <div class="module-card">
+      <h4>Managing the Event Workforce</h4>
+      <p>Group presentation and individual report on workforce planning, volunteer management, and team leadership.</p>
+    </div>
+    <div class="module-card">
+      <h4>Professional Event Practice 1</h4>
+      <p>Planned and hosted our own live gingerbread-making event from concept to delivery.</p>
+    </div>
+    <div class="module-card">
+      <h4>Professional Event Practice 2</h4>
+      <p>Worked on the Be Kind live event — real audience, real pressure, real impact.</p>
+    </div>
+    <div class="module-card">
+      <h4>Integrated Marketing Communications</h4>
+      <p>Poster presentation on event marketing strategy — branding, audience targeting, and campaign design.</p>
+    </div>
+    <div class="module-card">
+      <h4>Event Planning</h4>
+      <p>Full A–Z of event planning including risk, logistics, and contingency. Individual report based on a simulation.</p>
+    </div>
+    <div class="module-card">
+      <h4>Strategic Management of Events</h4>
+      <p>24-hour exam applying strategic models and frameworks to real event management scenarios.</p>
+    </div>
+    <div class="module-card">
+      <h4>Other Modules</h4>
+      <p>Events in Society · Managing Event Organisations · Staging Safe Events · Operations Management Plan · Creative Event Marketing</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div>
+    <h2>Let's make<br>something <em>great</em><br>together</h2>
+    <p>Looking for someone who brings creativity, care, and calm under pressure to every event? I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:maialmouzain@gmail.com" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        <div class="contact-link-text"><p>Email</p><p>maialmouzain@gmail.com</p></div>
+      </a>
+      <a href="tel:+447961145477" class="contact-link">
+        <div class="contact-link-icon">☎</div>
+        <div class="contact-link-text"><p>Phone</p><p>+44 7961 145477</p></div>
+      </a>
+      <a href="https://www.linkedin.com/in/maialmuzayin" target="_blank" class="contact-link">
+        <div class="contact-link-icon">in</div>
+        <div class="contact-link-text"><p>LinkedIn</p><p>linkedin.com/in/maialmuzayin</p></div>
+      </a>
+    </div>
+  </div>
+  <div class="contact-form">
+    <input type="text" placeholder="Your name">
+    <input type="text" placeholder="Your email">
+    <input type="text" placeholder="What's the event?">
+    <textarea placeholder="Tell me more..."></textarea>
+    <button type="button">Send message →</button>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Mai Moutaz</span>
+  <p>Events Management Graduate · Leeds, UK · 🇸🇦 🇬🇧</p>
+  <p>© 2026</p>
+</footer>
+
+</body>
+</html>
